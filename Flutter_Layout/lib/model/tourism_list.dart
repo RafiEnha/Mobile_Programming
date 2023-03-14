@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout/detail_screen.dart';
 import 'package:flutter_layout/model/list_item.dart';
 import 'package:flutter_layout/model/tourism_place.dart';
-import 'package:flutter_layout/model/done_tourism_list.dart';
 
 class TourismList extends StatefulWidget{
   final List<TourismPlace> doneTourismPlaceList;
@@ -16,7 +15,7 @@ class TourismList extends StatefulWidget{
 }
 
 class _TourismListState extends State<TourismList>{
-  final List<TourismPlace> doneTourismPlaceList = [];
+  final List<TourismPlace> doneTourismPlaceList;
   final List<TourismPlace> tourismPlaceList = [
     TourismPlace(
       name: 'Surabaya Submarine Monument',

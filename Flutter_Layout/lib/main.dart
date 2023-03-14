@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Contacts',
       theme: ThemeData(),
-      home: const MainScreen(),
+      home: MainScreen(),
     );
   }
 }
