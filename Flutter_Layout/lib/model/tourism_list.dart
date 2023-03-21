@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout/detail_screen.dart';
 import 'package:flutter_layout/model/list_item.dart';
 import 'package:flutter_layout/model/tourism_place.dart';
+import 'package:flutter_layout/provider/done_tourism_provider.dart';
+import 'package:provider/provider.dart';
 
 class TourismList extends StatefulWidget{
-  final List<TourismPlace> doneTourismPlaceList;
+  const TourismList({Key? key}) : super(key: key);
 
-  const TourismList({
-    Key? key,
-    required this.doneTourismPlaceList
-  }) : super(key: key);
   @override
-  _TourismListState createState() => _TourismListState(doneTourismPlaceList);
+  _TourismListState createState() => _TourismListState();
 }
 
 class _TourismListState extends State<TourismList>{
-  final List<TourismPlace> doneTourismPlaceList;
   final List<TourismPlace> tourismPlaceList = [
     TourismPlace(
       name: 'Surabaya Submarine Monument',
@@ -99,8 +96,6 @@ class _TourismListState extends State<TourismList>{
     ),
   ];
 
-  _TourismListState(this.doneTourismPlaceList);
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -112,19 +107,23 @@ class _TourismListState extends State<TourismList>{
                 return DetailScreen(place: place);
               }));
             },
-            child: ListItem(
-              place: place,
-              isDone: doneTourismPlaceList.contains(place),
-              onCheckboxClick: (bool? value){
-                setState(() {
-                  if(value!=null) {
-                    value
-                        ? doneTourismPlaceList.add(place)
-                        : doneTourismPlaceList.remove(place);
-                  }
-                });
+            child: Consumer<DoneTourismProvider>(
+              builder: (context, DoneTourismProvider data, widget){
+                return ListItem(
+                  place: place,
+                  isDone: doneTourismPlaceList.contains(place),
+                  onCheckboxClick: (bool? value){
+                    setState(() {
+                      if(value!=null) {
+                        value
+                            ? doneTourismPlaceList.add(place)
+                            : doneTourismPlaceList.remove(place);
+                      }
+                    });
+                  },
+                ),
               },
-            ),
+            )
           );
         },
         itemCount: tourismPlaceList.length,
